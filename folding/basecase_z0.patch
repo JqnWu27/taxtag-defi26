@@ -1,0 +1,20 @@
+diff --git a/folding-schemes/src/folding/nova/circuits.rs b/folding-schemes/src/folding/nova/circuits.rs
+index 6b7f8fa..ef3af37 100644
+--- a/folding-schemes/src/folding/nova/circuits.rs
++++ b/folding-schemes/src/folding/nova/circuits.rs
+@@ -159,6 +159,15 @@ where
+ 
+         let is_basecase = i.is_zero()?;
+ 
++        // TaxTag change (gap G3 of folding-runner/ZK-DECIDER.md), the only change to this file:
++        // in the base case the step function must be applied to the PUBLIC initial state.
++        // Without this constraint `z_i` is a free witness at `i = 0`, the first step computes
++        // `z_1 = F(z_i)` and the output hash commits to `(1, z_0, z_1)` for an unrelated `z_0`,
++        // so a chain could start from any state while claiming `z_0`.
++        // (Nova's F' applies F to z_0 itself in the base case.)
++        z_i.as_slice()
++            .conditional_enforce_equal(z_0.as_slice(), &is_basecase)?;
++
+         // Primary Part
+         // P.1. Compute u_i.x
+         // u_i.x[0] = H(i, z_0, z_i, U_i)

@@ -1,0 +1,47 @@
+[package]
+name = "taxtag-zk-runner"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+publish = false
+
+# Runner for the hiding ("blind-then-compress") Nova decider, see
+# ../../ZK-DECIDER.md. Unlike a runner built as an example of the
+# solidity-verifiers package (whose dev-dependencies silently switch on
+# folding-schemes' `light-test` feature), this crate makes that choice
+# explicit: the default build is the FULL decider circuit; `--features light`
+# builds the reduced circuit that skips the CycleFold checks (testing only).
+
+[dependencies]
+ark-bn254 = { workspace = true, features = ["r1cs"] }
+ark-grumpkin = { workspace = true, features = ["r1cs"] }
+ark-groth16 = { workspace = true, features = ["parallel"] }
+ark-ec = { workspace = true, features = ["parallel"] }
+ark-ff = { workspace = true, features = ["parallel", "asm"] }
+ark-std = { workspace = true, features = ["parallel"] }
+ark-serialize = { workspace = true }
+ark-snark = { workspace = true }
+ark-relations = { workspace = true }
+ark-r1cs-std = { workspace = true, features = ["parallel"] }
+ark-crypto-primitives = { workspace = true, features = ["sponge", "parallel"] }
+ark-poly-commit = { workspace = true, features = ["parallel"] }
+ark-poly = { workspace = true, features = ["parallel"] }
+rayon = { workspace = true }
+folding-schemes = { workspace = true }
+experimental-frontends = { workspace = true }
+serde_json = { workspace = true }
+# for the cached circom frontend (ported from folding/filing_fold.rs); all three are already
+# dependencies of experimental-frontends
+ark-circom = { workspace = true }
+wasmer = { workspace = true }
+tokio = { workspace = true }
+num-bigint = { workspace = true }
+
+[features]
+default = []
+# reduced decider circuits (no CycleFold commitment / relation checks): NOT a sound proof
+light = ["folding-schemes/light-test"]
+
+[[bin]]
+name = "taxtag_zk_flow"
+path = "src/main.rs"

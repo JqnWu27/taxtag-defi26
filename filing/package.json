@@ -1,0 +1,13 @@
+{
+  "name": "taxtag-filing",
+  "private": true,
+  "description": "TaxTag filing side: JS reference implementation, input generators and tests",
+  "scripts": {
+    "test": "node consts.js --check && node test_smt_isold0.js && node test_witness.js all && node test_fixtures.js && node test_edge.js"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "snarkjs": "^0.7.6"
+  }
+}

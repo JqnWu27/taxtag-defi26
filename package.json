@@ -1,0 +1,17 @@
+{
+  "name": "taxtag-defi26",
+  "private": true,
+  "scripts": {
+    "rec:build": "bash harness/bench_rec.sh",
+    "rec:test": "bash harness/run_all.sh",
+    "rec:gas": "node harness/gas_record.js && node harness/gas_sweep.js"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "ethers": "^6.17.0",
+    "ganache": "^7.9.2",
+    "snarkjs": "^0.7.6",
+    "solc": "^0.8.36"
+  }
+}

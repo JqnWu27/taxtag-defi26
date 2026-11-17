@@ -1,0 +1,25 @@
+node_modules/
+*.ptau
+*.log
+
+# recording side: build outputs of harness/bench_rec.sh, test logs, gas tables
+out/
+
+# filing side: circuits, keys, runs, logs
+filing/build/
+filing/node_modules/
+filing/logs/
+
+# fold driver: the pinned clone of the folding library and its build
+folding/sonobe/
+
+# end-to-end runner: binaries, setup scratch, keys, proofs, logs, cargo build
+folding-runner/tmp/
+folding-runner/bin/
+folding-runner/keys/
+folding-runner/proofs/
+folding-runner/logs/
+folding-runner/sonobe-zk/target/
+
+# output of the stand-alone fold driver command in REPRODUCE.md
+/out.json
